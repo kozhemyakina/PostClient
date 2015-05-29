@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -56,41 +57,39 @@ namespace PostClient.UI
 
         public static void ReceiveInbox()
         {
-            if (!File.Exists(inboxMsgPath))
-                return;
-            using (var f = new FileStream(inboxMsgPath, FileMode.Open))
-            {
-                var ser = new XmlSerializer(typeof (List<Message>));
-                var sent = ser.Deserialize(f) as List<Message>;
-                if (sent != null)
+            if (File.Exists(inboxMsgPath))
+                using (var f = new FileStream(inboxMsgPath, FileMode.Open))
                 {
-                    InboxMessages.Clear();
-                    InboxMessages.AddRange(sent);
+                    var ser = new XmlSerializer(typeof (List<Message>));
+                    var sent = ser.Deserialize(f) as List<Message>;
+                    if (sent != null)
+                    {
+                        InboxMessages.Clear();
+                        InboxMessages.AddRange(sent);
+                    }
                 }
-            }
             var msgList = FetchAllMessages("pop.gmail.com", 995, true, Credentials.Email, Credentials.Password);
             if (msgList.Count == 0)
                 return;
             var normalMsgList = (from m in msgList
-                select new Message(m.ToMailMessage())).ToList();
+                select new Message(m.ToMailMessage()){Date = m.Headers.DateSent}).ToList();
             InboxMessages.AddRange(normalMsgList);
             Save();
         }
 
         public static void ReceiveSent()
         {
-            if (!File.Exists(sentMsgPath))
-                return;
-            using (var f = new FileStream(sentMsgPath, FileMode.Open))
-            {
-                var ser = new XmlSerializer(typeof (List<Message>));
-                var sent = ser.Deserialize(f) as List<Message>;
-                if (sent != null)
+            if (File.Exists(sentMsgPath))
+                using (var f = new FileStream(sentMsgPath, FileMode.Open))
                 {
-                    SentMessages.Clear();
-                    SentMessages.AddRange(sent);
+                    var ser = new XmlSerializer(typeof (List<Message>));
+                    var sent = ser.Deserialize(f) as List<Message>;
+                    if (sent != null)
+                    {
+                        SentMessages.Clear();
+                        SentMessages.AddRange(sent);
+                    }
                 }
-            }
         }
 
         public static void Save()
@@ -113,12 +112,14 @@ namespace PostClient.UI
             foreach (var msg in InboxMessages)
             {
                 var item = new ListViewItem(msg.Subject);
+                item.SubItems.Add(msg.Date.ToString());
                 inboxListView.Invoke(() => { inboxListView.Items.Add(item); });
             }
             sentListView.Invoke(() => sentListView.Items.Clear());
             foreach (var msg in SentMessages)
             {
                 var item = new ListViewItem(msg.Subject);
+                item.SubItems.Add(msg.Date.ToString());
                 sentListView.Invoke(() => sentListView.Items.Add(item));
             }
         }
@@ -135,7 +136,7 @@ namespace PostClient.UI
             client.Credentials = new NetworkCredential(Credentials.Email, Credentials.Password);
 
             client.Send(msg);
-            SentMessages.Add(new Message(msg));
+            SentMessages.Add(new Message(msg){Date = DateTime.Now});
             Save();
         }
 

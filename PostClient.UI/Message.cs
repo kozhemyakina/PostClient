@@ -19,7 +19,7 @@ namespace PostClient.UI
         public String Body { get; set; }
         public String From { get; set; }
         public String To { get; set; }
-
+        public DateTime Date { get; set; }
         private void _convertToMyMessage(MailMessage msg)
         {
             Subject = msg.Subject;

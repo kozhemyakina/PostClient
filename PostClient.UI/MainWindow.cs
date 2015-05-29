@@ -128,5 +128,16 @@ namespace PostClient.UI
             PluginManager.UnloadSinglePlugin(item.Text);
             PluginManager.UpdatePluginListView(pluginListView);
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Olga Kozhemyakina, 250503. 2015");
+        }
     }
 }

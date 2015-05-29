@@ -56,6 +56,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.deletePluginContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.unloadPluginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -107,6 +109,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -121,6 +124,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -156,7 +160,8 @@
             // inboxListView
             // 
             this.inboxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3});
             this.inboxListView.FullRowSelect = true;
             this.inboxListView.GridLines = true;
             this.inboxListView.Location = new System.Drawing.Point(6, 19);
@@ -172,7 +177,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Subject";
-            this.columnHeader2.Width = 331;
+            this.columnHeader2.Width = 220;
             // 
             // groupBox1
             // 
@@ -197,7 +202,8 @@
             // sentListView
             // 
             this.sentListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.sentListView.FullRowSelect = true;
             this.sentListView.GridLines = true;
             this.sentListView.Location = new System.Drawing.Point(6, 19);
@@ -213,7 +219,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Subject";
-            this.columnHeader4.Width = 336;
+            this.columnHeader4.Width = 220;
             // 
             // inboxDeleteMenuStrip
             // 
@@ -294,9 +300,19 @@
             // unloadPluginToolStripMenuItem
             // 
             this.unloadPluginToolStripMenuItem.Name = "unloadPluginToolStripMenuItem";
-            this.unloadPluginToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.unloadPluginToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.unloadPluginToolStripMenuItem.Text = "Unload plugin";
             this.unloadPluginToolStripMenuItem.Click += new System.EventHandler(this.unloadPluginToolStripMenuItem_Click);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Date";
+            this.columnHeader3.Width = 130;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Date";
+            this.columnHeader5.Width = 130;
             // 
             // MainWindow
             // 
@@ -363,6 +379,8 @@
         private System.Windows.Forms.Button addPluginButton;
         private System.Windows.Forms.ContextMenuStrip deletePluginContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem unloadPluginToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }
 
