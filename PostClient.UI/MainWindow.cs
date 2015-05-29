@@ -19,9 +19,7 @@ namespace PostClient.UI
 
         private void getMailToolStripButton_Click(object sender, EventArgs e)
         {
-            PostManager.ReceiveInbox();
-            PostManager.ReceiveSent();
-            PostManager.UpdateListView(inboxListView, sentListView);
+            UpdatePostAsync();
         }
 
         private void newMailToolStripButton_Click(object sender, EventArgs e)
@@ -60,6 +58,44 @@ namespace PostClient.UI
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             PostManager.Save();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            UpdatePostAsync();
+        }
+
+        private void UpdatePostAsync()
+        {
+            var inboxTask = Task.Run(() =>
+            {
+                this.Invoke(() => { statusLabel.Text = "Loading inbox messages"; });
+                PostManager.ReceiveInbox();
+                this.Invoke(() => { statusLabel.Text = "Loading sent messages"; });
+                PostManager.ReceiveSent();
+                PostManager.UpdateListView(inboxListView, sentListView);
+                this.Invoke(() => { statusLabel.Text = "Idle"; });
+            });
+        }
+
+        private void inboxListView_DoubleClick(object sender, EventArgs e)
+        {
+            if (inboxListView.SelectedIndices.Count != 1)
+                return;
+            var item = (sender as ListView).SelectedItems[0];
+            var msg = PostManager.FindInInbox(item.Text);
+            var msgWnd = new EmailWindow(ShowMessageType.View, msg);
+            msgWnd.ShowDialog();
+        }
+
+        private void sentListView_DoubleClick(object sender, EventArgs e)
+        {
+            if (sentListView.SelectedIndices.Count != 1)
+                return;
+            var item = (sender as ListView).SelectedItems[0];
+            var msg = PostManager.FindInSent(item.Text);
+            var msgWnd = new EmailWindow(ShowMessageType.View, msg, true);
+            msgWnd.ShowDialog();
         }
     }
 }

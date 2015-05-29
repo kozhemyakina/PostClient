@@ -36,7 +36,7 @@
             this.toTextBox = new System.Windows.Forms.TextBox();
             this.subjectTextBox = new System.Windows.Forms.TextBox();
             this.bodyTextBox = new System.Windows.Forms.RichTextBox();
-            this.sendButtonClick = new System.Windows.Forms.Button();
+            this.sendButton = new System.Windows.Forms.Button();
             this.replyButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -105,15 +105,15 @@
             this.bodyTextBox.TabIndex = 4;
             this.bodyTextBox.Text = "";
             // 
-            // sendButtonClick
+            // sendButton
             // 
-            this.sendButtonClick.Location = new System.Drawing.Point(337, 446);
-            this.sendButtonClick.Name = "sendButtonClick";
-            this.sendButtonClick.Size = new System.Drawing.Size(75, 23);
-            this.sendButtonClick.TabIndex = 6;
-            this.sendButtonClick.Text = "Send";
-            this.sendButtonClick.UseVisualStyleBackColor = true;
-            this.sendButtonClick.Click += new System.EventHandler(this.sendButtonClick_Click);
+            this.sendButton.Location = new System.Drawing.Point(337, 446);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(75, 23);
+            this.sendButton.TabIndex = 6;
+            this.sendButton.Text = "Send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButtonClick_Click);
             // 
             // replyButton
             // 
@@ -123,6 +123,7 @@
             this.replyButton.TabIndex = 5;
             this.replyButton.Text = "Reply";
             this.replyButton.UseVisualStyleBackColor = true;
+            this.replyButton.Click += new System.EventHandler(this.replyButton_Click);
             // 
             // EmailWindow
             // 
@@ -130,7 +131,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 481);
             this.Controls.Add(this.replyButton);
-            this.Controls.Add(this.sendButtonClick);
+            this.Controls.Add(this.sendButton);
             this.Controls.Add(this.bodyTextBox);
             this.Controls.Add(this.subjectTextBox);
             this.Controls.Add(this.toTextBox);
@@ -159,7 +160,7 @@
         private System.Windows.Forms.TextBox toTextBox;
         private System.Windows.Forms.TextBox subjectTextBox;
         private System.Windows.Forms.RichTextBox bodyTextBox;
-        private System.Windows.Forms.Button sendButtonClick;
+        private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Button replyButton;
     }
 }

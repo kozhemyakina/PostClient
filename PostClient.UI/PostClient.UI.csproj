@@ -66,6 +66,7 @@
       <DependentUpon>EmailWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Ext.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -74,7 +75,7 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Message.cs" />
-    <Compile Include="PostReceiver.cs" />
+    <Compile Include="PostManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowMessageType.cs" />

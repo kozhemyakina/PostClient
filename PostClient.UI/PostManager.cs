@@ -102,17 +102,17 @@ namespace PostClient.UI
 
         public static void UpdateListView(ListView inboxListView, ListView sentListView)
         {
-            inboxListView.Items.Clear();
+            inboxListView.Invoke(() => inboxListView.Items.Clear());
             foreach (var msg in InboxMessages)
             {
                 var item = new ListViewItem(msg.Subject);
-                inboxListView.Items.Add(item);
+                inboxListView.Invoke(() => { inboxListView.Items.Add(item); });
             }
-            sentListView.Items.Clear();
+            sentListView.Invoke(() => sentListView.Items.Clear());
             foreach (var msg in SentMessages)
             {
                 var item = new ListViewItem(msg.Subject);
-                sentListView.Items.Add(item);
+                sentListView.Invoke(() => sentListView.Items.Add(item));
             }
         }
 
@@ -134,7 +134,9 @@ namespace PostClient.UI
 
         public static void DeleteFromInbox(string subject)
         {
-            InboxMessages.RemoveAll(m => m.Subject == subject);
+            var item = InboxMessages.First(m => m.Subject == subject);
+            InboxMessages.Remove(item);
+            Save();
         }
 
         
@@ -143,6 +145,16 @@ namespace PostClient.UI
             var item = SentMessages.First(m => m.Subject == subject);
             SentMessages.Remove(item);
             Save();
+        }
+
+        public static Message FindInInbox(string subject)
+        {
+            return InboxMessages.First(m => m.Subject == subject);
+        }
+
+        public static Message FindInSent(string subject)
+        {
+            return SentMessages.First(m => m.Subject == subject);
         }
     }
 
