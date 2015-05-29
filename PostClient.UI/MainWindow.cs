@@ -107,12 +107,48 @@ namespace PostClient.UI
                 dialog.Filter = "Plugin assemblies (*.dll) | *.dll";
                 dialog.Multiselect = false;
                 if (dialog.ShowDialog() == DialogResult.OK)
-                    PluginManager.LoadSinglePlugin(dialog.FileName);
+                {
+                    PluginManager.LoadSinglePlugin(dialog.FileName, this);
+                    PluginManager.UpdatePluginListView(pluginListView);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                trayIcon.Visible = true;
+                trayIcon.ShowBalloonTip(500);
+                this.Hide();
+            }
+
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                trayIcon.Visible = false;
+            }
+        }
+
+        private void openEmailMessengerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
+        }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
     }
 }

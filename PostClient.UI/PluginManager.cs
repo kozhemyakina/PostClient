@@ -42,7 +42,7 @@ namespace PostClient.UI
                 ser.Serialize(fs, LoadedDllList);
             }
         }
-        public static void LoadSavedPlugins()
+        public static void LoadSavedPlugins(Form form)
         {
             var dllList = LoadDllList();
             foreach (var path in dllList)
@@ -52,7 +52,7 @@ namespace PostClient.UI
                 {
                     var instance = Activator.CreateInstance(type) as IPlugin;
                     PluginInstances.Add(new KeyValuePair<string, IPlugin>(path, instance));
-                    instance.DoActions();
+                    instance.DoActions(form);
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace PostClient.UI
             return suitableTypes;
         }
 
-        public static void LoadSinglePlugin(string fileName)
+        public static void LoadSinglePlugin(string fileName, Form form)
         {
             if (LoadedDllList.Contains(fileName))
                 throw new InvalidOperationException("Sorry, you cannot load plugin twice");
@@ -84,7 +84,7 @@ namespace PostClient.UI
             {
                 var instance = Activator.CreateInstance(t) as IPlugin;
                 PluginInstances.Add(new KeyValuePair<string, IPlugin>(fileName, instance));
-                instance.DoActions();
+                instance.DoActions(form);
             }
             LoadedDllList.Add(fileName);
         }

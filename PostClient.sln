@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostClient.UI", "PostClient.UI\PostClient.UI.csproj", "{C15DCE51-C0C9-4513-AE1C-CE54BA448EA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostClient.TrayPlugin", "PostClient.TrayPlugin\PostClient.TrayPlugin.csproj", "{3F1ED41D-AC43-442D-B739-BAF141257DF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C15DCE51-C0C9-4513-AE1C-CE54BA448EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C15DCE51-C0C9-4513-AE1C-CE54BA448EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C15DCE51-C0C9-4513-AE1C-CE54BA448EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1ED41D-AC43-442D-B739-BAF141257DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1ED41D-AC43-442D-B739-BAF141257DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1ED41D-AC43-442D-B739-BAF141257DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1ED41D-AC43-442D-B739-BAF141257DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

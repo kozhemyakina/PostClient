@@ -52,10 +52,14 @@
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsGroupBox = new System.Windows.Forms.GroupBox();
             this.addPluginButton = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.pluginListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.deletePluginContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.unloadPluginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openEmailMessengerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -65,6 +69,7 @@
             this.sentDeleteMenuStrip.SuspendLayout();
             this.pluginsGroupBox.SuspendLayout();
             this.deletePluginContextMenuStrip.SuspendLayout();
+            this.trayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -246,7 +251,7 @@
             // pluginsGroupBox
             // 
             this.pluginsGroupBox.Controls.Add(this.addPluginButton);
-            this.pluginsGroupBox.Controls.Add(this.listView1);
+            this.pluginsGroupBox.Controls.Add(this.pluginListView);
             this.pluginsGroupBox.Location = new System.Drawing.Point(420, 52);
             this.pluginsGroupBox.Name = "pluginsGroupBox";
             this.pluginsGroupBox.Size = new System.Drawing.Size(285, 404);
@@ -264,19 +269,19 @@
             this.addPluginButton.UseVisualStyleBackColor = true;
             this.addPluginButton.Click += new System.EventHandler(this.addPluginButton_Click);
             // 
-            // listView1
+            // pluginListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.pluginListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(273, 350);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.pluginListView.FullRowSelect = true;
+            this.pluginListView.GridLines = true;
+            this.pluginListView.Location = new System.Drawing.Point(6, 19);
+            this.pluginListView.MultiSelect = false;
+            this.pluginListView.Name = "pluginListView";
+            this.pluginListView.Size = new System.Drawing.Size(273, 350);
+            this.pluginListView.TabIndex = 0;
+            this.pluginListView.UseCompatibleStateImageBehavior = false;
+            this.pluginListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -295,6 +300,38 @@
             this.unloadPluginToolStripMenuItem.Name = "unloadPluginToolStripMenuItem";
             this.unloadPluginToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.unloadPluginToolStripMenuItem.Text = "Unload plugin";
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.trayIcon.BalloonTipText = "Hello, world!";
+            this.trayIcon.BalloonTipTitle = "Email messenger";
+            this.trayIcon.ContextMenuStrip = this.trayContextMenuStrip;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "Email messenger";
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
+            // 
+            // trayContextMenuStrip
+            // 
+            this.trayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openEmailMessengerToolStripMenuItem,
+            this.exitToolStripMenuItem1});
+            this.trayContextMenuStrip.Name = "trayContextMenuStrip";
+            this.trayContextMenuStrip.Size = new System.Drawing.Size(196, 48);
+            // 
+            // openEmailMessengerToolStripMenuItem
+            // 
+            this.openEmailMessengerToolStripMenuItem.Name = "openEmailMessengerToolStripMenuItem";
+            this.openEmailMessengerToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.openEmailMessengerToolStripMenuItem.Text = "Open Email messenger";
+            this.openEmailMessengerToolStripMenuItem.Click += new System.EventHandler(this.openEmailMessengerToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
             // MainWindow
             // 
@@ -316,6 +353,7 @@
             this.Text = "Email messenger";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -328,6 +366,7 @@
             this.sentDeleteMenuStrip.ResumeLayout(false);
             this.pluginsGroupBox.ResumeLayout(false);
             this.deletePluginContextMenuStrip.ResumeLayout(false);
+            this.trayContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,11 +395,15 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.GroupBox pluginsGroupBox;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView pluginListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button addPluginButton;
         private System.Windows.Forms.ContextMenuStrip deletePluginContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem unloadPluginToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.ContextMenuStrip trayContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem openEmailMessengerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
     }
 }
 
