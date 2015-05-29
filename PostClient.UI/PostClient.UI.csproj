@@ -75,6 +75,7 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Message.cs" />
+    <Compile Include="PluginManager.cs" />
     <Compile Include="PostManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

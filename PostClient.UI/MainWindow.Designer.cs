@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,11 +50,10 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sentDeleteMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pluginsGroupBox = new System.Windows.Forms.GroupBox();
+            this.addPluginButton = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.addPluginButton = new System.Windows.Forms.Button();
             this.deletePluginContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.unloadPluginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
@@ -76,6 +76,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(717, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(26, 17);
+            this.statusLabel.Text = "Idle";
             // 
             // menuStrip1
             // 
@@ -113,7 +119,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // toolStrip1
@@ -237,12 +243,6 @@
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
-            // statusLabel
-            // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(26, 17);
-            this.statusLabel.Text = "Idle";
-            // 
             // pluginsGroupBox
             // 
             this.pluginsGroupBox.Controls.Add(this.addPluginButton);
@@ -253,6 +253,16 @@
             this.pluginsGroupBox.TabIndex = 5;
             this.pluginsGroupBox.TabStop = false;
             this.pluginsGroupBox.Text = "Plugins";
+            // 
+            // addPluginButton
+            // 
+            this.addPluginButton.Location = new System.Drawing.Point(6, 375);
+            this.addPluginButton.Name = "addPluginButton";
+            this.addPluginButton.Size = new System.Drawing.Size(273, 23);
+            this.addPluginButton.TabIndex = 1;
+            this.addPluginButton.Text = "Add plugin";
+            this.addPluginButton.UseVisualStyleBackColor = true;
+            this.addPluginButton.Click += new System.EventHandler(this.addPluginButton_Click);
             // 
             // listView1
             // 
@@ -272,15 +282,6 @@
             // 
             this.columnHeader1.Text = "Plugin";
             this.columnHeader1.Width = 243;
-            // 
-            // addPluginButton
-            // 
-            this.addPluginButton.Location = new System.Drawing.Point(6, 375);
-            this.addPluginButton.Name = "addPluginButton";
-            this.addPluginButton.Size = new System.Drawing.Size(273, 23);
-            this.addPluginButton.TabIndex = 1;
-            this.addPluginButton.Text = "Add plugin";
-            this.addPluginButton.UseVisualStyleBackColor = true;
             // 
             // deletePluginContextMenuStrip
             // 

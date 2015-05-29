@@ -58,6 +58,7 @@ namespace PostClient.UI
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             PostManager.Save();
+            PluginManager.SavePluginList();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -96,6 +97,22 @@ namespace PostClient.UI
             var msg = PostManager.FindInSent(item.Text);
             var msgWnd = new EmailWindow(ShowMessageType.View, msg, true);
             msgWnd.ShowDialog();
+        }
+
+        private void addPluginButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dialog = new OpenFileDialog();
+                dialog.Filter = "Plugin assemblies (*.dll) | *.dll";
+                dialog.Multiselect = false;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                    PluginManager.LoadSinglePlugin(dialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
