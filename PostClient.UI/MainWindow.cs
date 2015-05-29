@@ -59,11 +59,14 @@ namespace PostClient.UI
         {
             PostManager.Save();
             PluginManager.SavePluginList();
+            PluginManager.UnloadAllPlugins();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
             UpdatePostAsync();
+            PluginManager.LoadSavedPlugins(this, inboxListView, sentListView, pluginListView);
+            PluginManager.UpdatePluginListView(pluginListView);
         }
 
         private void UpdatePostAsync()
@@ -108,7 +111,7 @@ namespace PostClient.UI
                 dialog.Multiselect = false;
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    PluginManager.LoadSinglePlugin(dialog.FileName, this);
+                    PluginManager.LoadSinglePlugin(dialog.FileName, this, inboxListView, sentListView, pluginListView);
                     PluginManager.UpdatePluginListView(pluginListView);
                 }
             }
@@ -118,37 +121,18 @@ namespace PostClient.UI
             }
         }
 
-        private void MainWindow_Resize(object sender, EventArgs e)
-        {
-            if (FormWindowState.Minimized == this.WindowState)
-            {
-                trayIcon.Visible = true;
-                trayIcon.ShowBalloonTip(500);
-                this.Hide();
-            }
+       
 
-            else if (FormWindowState.Normal == this.WindowState)
-            {
-                trayIcon.Visible = false;
-            }
+        private void pluginListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pluginListView.ContextMenuStrip = pluginListView.SelectedIndices.Count == 1 ? deletePluginContextMenuStrip : null;
         }
 
-        private void openEmailMessengerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void unloadPluginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-        }
-
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Application.Exit();
-        }
-
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
+            var item = pluginListView.SelectedItems[0];
+            PluginManager.UnloadSinglePlugin(item.Text);
+            PluginManager.UpdatePluginListView(pluginListView);
         }
     }
 }
