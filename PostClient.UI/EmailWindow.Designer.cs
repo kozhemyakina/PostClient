@@ -32,12 +32,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.fromTextBox = new System.Windows.Forms.TextBox();
+            this.toTextBox = new System.Windows.Forms.TextBox();
+            this.subjectTextBox = new System.Windows.Forms.TextBox();
+            this.bodyTextBox = new System.Windows.Forms.RichTextBox();
+            this.sendButtonClick = new System.Windows.Forms.Button();
+            this.replyButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -76,71 +76,74 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Body: ";
             // 
-            // textBox1
+            // fromTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(54, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(358, 20);
-            this.textBox1.TabIndex = 2;
+            this.fromTextBox.Location = new System.Drawing.Point(54, 26);
+            this.fromTextBox.Name = "fromTextBox";
+            this.fromTextBox.Size = new System.Drawing.Size(358, 20);
+            this.fromTextBox.TabIndex = 1;
             // 
-            // textBox2
+            // toTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(54, 52);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(358, 20);
-            this.textBox2.TabIndex = 2;
+            this.toTextBox.Location = new System.Drawing.Point(54, 52);
+            this.toTextBox.Name = "toTextBox";
+            this.toTextBox.Size = new System.Drawing.Size(358, 20);
+            this.toTextBox.TabIndex = 2;
             // 
-            // textBox3
+            // subjectTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(54, 78);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(358, 20);
-            this.textBox3.TabIndex = 2;
+            this.subjectTextBox.Location = new System.Drawing.Point(54, 78);
+            this.subjectTextBox.Name = "subjectTextBox";
+            this.subjectTextBox.Size = new System.Drawing.Size(358, 20);
+            this.subjectTextBox.TabIndex = 3;
             // 
-            // richTextBox1
+            // bodyTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(54, 104);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(358, 336);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.bodyTextBox.Location = new System.Drawing.Point(54, 104);
+            this.bodyTextBox.Name = "bodyTextBox";
+            this.bodyTextBox.Size = new System.Drawing.Size(358, 336);
+            this.bodyTextBox.TabIndex = 4;
+            this.bodyTextBox.Text = "";
             // 
-            // button1
+            // sendButtonClick
             // 
-            this.button1.Location = new System.Drawing.Point(337, 446);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Send";
-            this.button1.UseVisualStyleBackColor = true;
+            this.sendButtonClick.Location = new System.Drawing.Point(337, 446);
+            this.sendButtonClick.Name = "sendButtonClick";
+            this.sendButtonClick.Size = new System.Drawing.Size(75, 23);
+            this.sendButtonClick.TabIndex = 6;
+            this.sendButtonClick.Text = "Send";
+            this.sendButtonClick.UseVisualStyleBackColor = true;
+            this.sendButtonClick.Click += new System.EventHandler(this.sendButtonClick_Click);
             // 
-            // button2
+            // replyButton
             // 
-            this.button2.Location = new System.Drawing.Point(54, 446);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Reply";
-            this.button2.UseVisualStyleBackColor = true;
+            this.replyButton.Location = new System.Drawing.Point(54, 446);
+            this.replyButton.Name = "replyButton";
+            this.replyButton.Size = new System.Drawing.Size(75, 23);
+            this.replyButton.TabIndex = 5;
+            this.replyButton.Text = "Reply";
+            this.replyButton.UseVisualStyleBackColor = true;
             // 
             // EmailWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 481);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.replyButton);
+            this.Controls.Add(this.sendButtonClick);
+            this.Controls.Add(this.bodyTextBox);
+            this.Controls.Add(this.subjectTextBox);
+            this.Controls.Add(this.toTextBox);
+            this.Controls.Add(this.fromTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "EmailWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Message";
+            this.Load += new System.EventHandler(this.EmailWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,11 +155,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox fromTextBox;
+        private System.Windows.Forms.TextBox toTextBox;
+        private System.Windows.Forms.TextBox subjectTextBox;
+        private System.Windows.Forms.RichTextBox bodyTextBox;
+        private System.Windows.Forms.Button sendButtonClick;
+        private System.Windows.Forms.Button replyButton;
     }
 }

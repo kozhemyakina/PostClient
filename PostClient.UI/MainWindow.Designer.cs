@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -40,18 +41,22 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newMailToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.getMailToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.inboxListView = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.sentListView = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.inboxDeleteMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sentDeleteMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.inboxDeleteMenuStrip.SuspendLayout();
+            this.sentDeleteMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -85,7 +90,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // toolsToolStripMenuItem
@@ -99,7 +104,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.optionsToolStripMenuItem.Text = "Plugins";
             // 
             // helpToolStripMenuItem
@@ -113,7 +118,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // toolStrip1
@@ -135,6 +140,7 @@
             this.newMailToolStripButton.Name = "newMailToolStripButton";
             this.newMailToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.newMailToolStripButton.Text = "New message";
+            this.newMailToolStripButton.Click += new System.EventHandler(this.newMailToolStripButton_Click);
             // 
             // getMailToolStripButton
             // 
@@ -144,25 +150,31 @@
             this.getMailToolStripButton.Name = "getMailToolStripButton";
             this.getMailToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.getMailToolStripButton.Text = "Get all messages";
+            this.getMailToolStripButton.Click += new System.EventHandler(this.getMailToolStripButton_Click);
             // 
-            // listView1
+            // inboxListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
+            this.inboxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(390, 168);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.inboxListView.FullRowSelect = true;
+            this.inboxListView.GridLines = true;
+            this.inboxListView.Location = new System.Drawing.Point(6, 19);
+            this.inboxListView.MultiSelect = false;
+            this.inboxListView.Name = "inboxListView";
+            this.inboxListView.Size = new System.Drawing.Size(390, 168);
+            this.inboxListView.TabIndex = 3;
+            this.inboxListView.UseCompatibleStateImageBehavior = false;
+            this.inboxListView.View = System.Windows.Forms.View.Details;
+            this.inboxListView.SelectedIndexChanged += new System.EventHandler(this.inboxListView_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Subject";
+            this.columnHeader2.Width = 331;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Controls.Add(this.inboxListView);
             this.groupBox1.Location = new System.Drawing.Point(12, 52);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(402, 193);
@@ -170,19 +182,9 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Inbox messages";
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Date";
-            this.columnHeader1.Width = 100;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Subject";
-            this.columnHeader2.Width = 265;
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listView2);
+            this.groupBox2.Controls.Add(this.sentListView);
             this.groupBox2.Location = new System.Drawing.Point(12, 263);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(402, 193);
@@ -190,30 +192,53 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sent messages";
             // 
-            // listView2
+            // sentListView
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
+            this.sentListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4});
-            this.listView2.FullRowSelect = true;
-            this.listView2.GridLines = true;
-            this.listView2.Location = new System.Drawing.Point(6, 19);
-            this.listView2.MultiSelect = false;
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(390, 168);
-            this.listView2.TabIndex = 3;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Date";
-            this.columnHeader3.Width = 100;
+            this.sentListView.FullRowSelect = true;
+            this.sentListView.GridLines = true;
+            this.sentListView.Location = new System.Drawing.Point(6, 19);
+            this.sentListView.MultiSelect = false;
+            this.sentListView.Name = "sentListView";
+            this.sentListView.Size = new System.Drawing.Size(390, 168);
+            this.sentListView.TabIndex = 3;
+            this.sentListView.UseCompatibleStateImageBehavior = false;
+            this.sentListView.View = System.Windows.Forms.View.Details;
+            this.sentListView.SelectedIndexChanged += new System.EventHandler(this.sentListView_SelectedIndexChanged);
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Subject";
-            this.columnHeader4.Width = 265;
+            this.columnHeader4.Width = 336;
+            // 
+            // inboxDeleteMenuStrip
+            // 
+            this.inboxDeleteMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem});
+            this.inboxDeleteMenuStrip.Name = "inboxDeleteMenuStrip";
+            this.inboxDeleteMenuStrip.Size = new System.Drawing.Size(108, 26);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // sentDeleteMenuStrip
+            // 
+            this.sentDeleteMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem1});
+            this.sentDeleteMenuStrip.Name = "sentDeleteMenuStrip";
+            this.sentDeleteMenuStrip.Size = new System.Drawing.Size(108, 26);
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem1.Text = "Delete";
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
             // MainWindow
             // 
@@ -225,16 +250,22 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Email messenger";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.inboxDeleteMenuStrip.ResumeLayout(false);
+            this.sentDeleteMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,14 +284,16 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton newMailToolStripButton;
         private System.Windows.Forms.ToolStripButton getMailToolStripButton;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ListView inboxListView;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ListView sentListView;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ContextMenuStrip inboxDeleteMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip sentDeleteMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
     }
 }
 
