@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using OpenPop.Pop3;
 
 namespace PostClient.UI
 {
@@ -14,11 +15,17 @@ namespace PostClient.UI
         {
             try
             {
-                //using (var Client = new Pop3Client("pop.gmail.com", 995,
-             //loginTextBox.Text, passwordTextBox.Text, AuthMethod.Login, true))
+                // The client disconnects from the server when being disposed
+                using (Pop3Client client = new Pop3Client())
                 {
+                    // Connect to the server
+                    client.Connect("pop.gmail.com", 995, true);
+
                     Credentials.Email = loginTextBox.Text;
                     Credentials.Password = passwordTextBox.Text;
+
+                    // Authenticate ourselves towards the server
+                    client.Authenticate(Credentials.Email, Credentials.Password);
                 }
                 this.Hide();
                 var mainWindow = new MainWindow();
