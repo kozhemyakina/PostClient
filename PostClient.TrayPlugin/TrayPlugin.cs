@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using PostClient.TrayPlugin.Properties;
 using PostClient.UI;
 
 namespace PostClient.TrayPlugin
@@ -13,16 +13,12 @@ namespace PostClient.TrayPlugin
         private readonly ToolStripMenuItem openEmailMessengerToolStripMenuItem = new ToolStripMenuItem();
         private readonly ContextMenuStrip trayContextMenuStrip = new ContextMenuStrip();
         private readonly NotifyIcon trayIcon = new NotifyIcon();
-        private ComponentResourceManager resources;
-        private Form targetForm;
         private ListView inboxListView;
-        private ListView sentListView;
         private ListView pluginListView;
+        private ComponentResourceManager resources;
+        private ListView sentListView;
+        private Form targetForm;
 
-        ~TrayPlugin()
-        {
-            Dispose();
-        }
         public void Dispose()
         {
             targetForm.Resize -= MainWindow_Resize;
@@ -38,7 +34,11 @@ namespace PostClient.TrayPlugin
             InitializeComponents();
             MessageBox.Show("Tray plugin loaded");
             targetForm.Resize += MainWindow_Resize;
-            
+        }
+
+        ~TrayPlugin()
+        {
+            Dispose();
         }
 
         private void InitializeComponents()
@@ -49,10 +49,10 @@ namespace PostClient.TrayPlugin
             // 
             trayIcon.BalloonTipIcon = ToolTipIcon.Info;
             trayIcon.ContextMenuStrip = trayContextMenuStrip;
-            trayIcon.Icon = Properties.Resources.trayIcon;
+            trayIcon.Icon = Resources.trayIcon;
             trayIcon.Text = "Email messenger";
             trayIcon.MouseDoubleClick += trayIcon_MouseDoubleClick;
-            
+
             // 
             // trayContextMenuStrip
             // 
@@ -105,13 +105,13 @@ namespace PostClient.TrayPlugin
             Application.Exit();
         }
 
-      
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var formatString = "{0} Inbox messages\n{1} Sent messages\n{2} Plugins loaded";
             trayIcon.BalloonTipTitle = "Statistics";
             trayIcon.BalloonTipIcon = ToolTipIcon.Info;
-            trayIcon.BalloonTipText = String.Format(formatString, inboxListView.Items.Count, sentListView.Items.Count, pluginListView.Items.Count);
+            trayIcon.BalloonTipText = String.Format(formatString, inboxListView.Items.Count, sentListView.Items.Count,
+                pluginListView.Items.Count);
             trayIcon.ShowBalloonTip(500);
         }
     }

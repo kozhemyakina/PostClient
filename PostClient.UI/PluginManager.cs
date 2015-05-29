@@ -12,8 +12,9 @@ namespace PostClient.UI
     internal static class PluginManager
     {
         public static string DefaultPluginConfigPath = @"plugins.xml";
-        public static List<String> LoadedDllList = new List<string>(); 
-        public static List<KeyValuePair<String,IPlugin>> PluginInstances = new List<KeyValuePair<string, IPlugin>>(); 
+        public static List<String> LoadedDllList = new List<string>();
+        public static List<KeyValuePair<String, IPlugin>> PluginInstances = new List<KeyValuePair<string, IPlugin>>();
+
         public static List<String> LoadDllList()
         {
             var result = new List<String>();
@@ -42,7 +43,9 @@ namespace PostClient.UI
                 ser.Serialize(fs, LoadedDllList);
             }
         }
-        public static void LoadSavedPlugins(Form form, ListView inboxListView, ListView sentListView, ListView pluginListView)
+
+        public static void LoadSavedPlugins(Form form, ListView inboxListView, ListView sentListView,
+            ListView pluginListView)
         {
             var dllList = LoadDllList();
             foreach (var path in dllList)
@@ -65,6 +68,7 @@ namespace PostClient.UI
             PluginInstances.Clear();
             LoadedDllList.Clear();
         }
+
         private static List<Type> GetTypesFromAssembly(string assemblyPath)
         {
             var assembly = Assembly.LoadFile(assemblyPath);
@@ -76,7 +80,8 @@ namespace PostClient.UI
             return suitableTypes;
         }
 
-        public static void LoadSinglePlugin(string fileName, Form form, ListView inboxListView, ListView sentListView, ListView pluginListView)
+        public static void LoadSinglePlugin(string fileName, Form form, ListView inboxListView, ListView sentListView,
+            ListView pluginListView)
         {
             if (LoadedDllList.Contains(fileName))
                 throw new InvalidOperationException("Sorry, you cannot load plugin twice");

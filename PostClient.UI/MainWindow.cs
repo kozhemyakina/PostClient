@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -121,11 +115,11 @@ namespace PostClient.UI
             }
         }
 
-       
-
         private void pluginListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pluginListView.ContextMenuStrip = pluginListView.SelectedIndices.Count == 1 ? deletePluginContextMenuStrip : null;
+            pluginListView.ContextMenuStrip = pluginListView.SelectedIndices.Count == 1
+                ? deletePluginContextMenuStrip
+                : null;
         }
 
         private void unloadPluginToolStripMenuItem_Click(object sender, EventArgs e)

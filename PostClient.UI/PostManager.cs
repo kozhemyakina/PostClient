@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using OpenPop.Pop3;
@@ -11,19 +11,23 @@ namespace PostClient.UI
 {
     public static class PostManager
     {
-        private static string sentMsgPath = @"sent.xml";
-        private static string inboxMsgPath = @"inbox.xml";
+        private static readonly string sentMsgPath = @"sent.xml";
+        private static readonly string inboxMsgPath = @"inbox.xml";
+
         static PostManager()
         {
             InboxMessages = new List<Message>();
             SentMessages = new List<Message>();
         }
-        public static List<Message> InboxMessages { get; set; } 
+
+        public static List<Message> InboxMessages { get; set; }
         public static List<Message> SentMessages { get; set; }
-        public static List<OpenPop.Mime.Message> FetchAllMessages(string hostname, int port, bool useSsl, string username, string password)
+
+        public static List<OpenPop.Mime.Message> FetchAllMessages(string hostname, int port, bool useSsl,
+            string username, string password)
         {
             // The client disconnects from the server when being disposed
-            using (Pop3Client client = new Pop3Client())
+            using (var client = new Pop3Client())
             {
                 // Connect to the server
                 client.Connect(hostname, port, useSsl);
@@ -32,15 +36,15 @@ namespace PostClient.UI
                 client.Authenticate(username, password);
 
                 // Get the number of messages in the inbox
-                int messageCount = client.GetMessageCount();
+                var messageCount = client.GetMessageCount();
 
                 // We want to download all messages
-                List<OpenPop.Mime.Message> allMessages = new List<OpenPop.Mime.Message>(messageCount);
+                var allMessages = new List<OpenPop.Mime.Message>(messageCount);
 
                 // Messages are numbered in the interval: [1, messageCount]
                 // Ergo: message numbers are 1-based.
                 // Most servers give the latest message the highest number
-                for (int i = messageCount; i > 0; i--)
+                for (var i = messageCount; i > 0; i--)
                 {
                     allMessages.Add(client.GetMessage(i));
                 }
@@ -49,13 +53,14 @@ namespace PostClient.UI
                 return allMessages;
             }
         }
+
         public static void ReceiveInbox()
         {
             if (!File.Exists(inboxMsgPath))
                 return;
             using (var f = new FileStream(inboxMsgPath, FileMode.Open))
             {
-                var ser = new XmlSerializer(typeof(List<Message>));
+                var ser = new XmlSerializer(typeof (List<Message>));
                 var sent = ser.Deserialize(f) as List<Message>;
                 if (sent != null)
                 {
@@ -71,6 +76,7 @@ namespace PostClient.UI
             InboxMessages.AddRange(normalMsgList);
             Save();
         }
+
         public static void ReceiveSent()
         {
             if (!File.Exists(sentMsgPath))
@@ -86,16 +92,17 @@ namespace PostClient.UI
                 }
             }
         }
+
         public static void Save()
         {
             using (var f = new FileStream(sentMsgPath, FileMode.Create))
             {
-                var ser = new XmlSerializer(typeof(List<Message>));
+                var ser = new XmlSerializer(typeof (List<Message>));
                 ser.Serialize(f, SentMessages);
             }
             using (var f = new FileStream(inboxMsgPath, FileMode.Create))
             {
-                var ser = new XmlSerializer(typeof(List<Message>));
+                var ser = new XmlSerializer(typeof (List<Message>));
                 ser.Serialize(f, InboxMessages);
             }
         }
@@ -139,7 +146,6 @@ namespace PostClient.UI
             Save();
         }
 
-        
         public static void DeleteFromSent(string subject)
         {
             var item = SentMessages.First(m => m.Subject == subject);
@@ -157,5 +163,4 @@ namespace PostClient.UI
             return SentMessages.First(m => m.Subject == subject);
         }
     }
-
 }

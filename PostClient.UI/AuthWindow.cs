@@ -16,7 +16,7 @@ namespace PostClient.UI
             try
             {
                 // The client disconnects from the server when being disposed
-                using (Pop3Client client = new Pop3Client())
+                using (var client = new Pop3Client())
                 {
                     // Connect to the server
                     client.Connect("pop.gmail.com", 995, true);
@@ -27,9 +27,9 @@ namespace PostClient.UI
                     // Authenticate ourselves towards the server
                     client.Authenticate(Credentials.Email, Credentials.Password);
                 }
-                this.Hide();
+                Hide();
                 var mainWindow = new MainWindow();
-                mainWindow.Closed += (s, args) => this.Close();
+                mainWindow.Closed += (s, args) => Close();
                 mainWindow.Show();
             }
             catch (Exception ex)

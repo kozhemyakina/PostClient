@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,9 +6,10 @@ namespace PostClient.UI
 {
     public partial class EmailWindow : Form
     {
-        private ShowMessageType type;
-        private Message currentMessage;
-        private bool msgFromSent;
+        private readonly Message currentMessage;
+        private readonly bool msgFromSent;
+        private readonly ShowMessageType type;
+
         public EmailWindow(ShowMessageType type, Message msg = null, bool msgFromSent = false)
         {
             this.msgFromSent = msgFromSent;
@@ -34,11 +29,12 @@ namespace PostClient.UI
             var toArr = toTextBox.Text.ToCharArray();
             var subjArr = subjectTextBox.Text.ToCharArray();
             var bodyArr = bodyTextBox.Text.ToCharArray();
-            Task.Run(() =>
-            {
-                PostManager.Send(new string(fromArr), new string(toArr), new string(subjArr), new string(bodyArr));
-            });
-            this.Close();
+            Task.Run(
+                () =>
+                {
+                    PostManager.Send(new string(fromArr), new string(toArr), new string(subjArr), new string(bodyArr));
+                });
+            Close();
         }
 
         private void EmailWindow_Load(object sender, EventArgs e)
@@ -63,10 +59,10 @@ namespace PostClient.UI
                     subjectTextBox.ReadOnly = true;
                     bodyTextBox.ReadOnly = true;
 
-                    fromTextBox.Text = currentMessage.From; 
-                    toTextBox.Text= currentMessage.To; 
-                    subjectTextBox.Text = currentMessage.Subject; 
-                    bodyTextBox.Text= currentMessage.Body;
+                    fromTextBox.Text = currentMessage.From;
+                    toTextBox.Text = currentMessage.To;
+                    subjectTextBox.Text = currentMessage.Subject;
+                    bodyTextBox.Text = currentMessage.Body;
                     sendButton.Enabled = false;
 
                     if (msgFromSent)
@@ -79,14 +75,14 @@ namespace PostClient.UI
 
         private void replyButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var emailWindow = new EmailWindow(ShowMessageType.New, new Message()
+            Hide();
+            var emailWindow = new EmailWindow(ShowMessageType.New, new Message
             {
                 From = Credentials.Email,
                 Subject = "RE: " + currentMessage.Subject,
                 To = currentMessage.From
             });
-            emailWindow.Closed += (s, args) => this.Close();
+            emailWindow.Closed += (s, args) => Close();
             emailWindow.ShowDialog();
         }
     }
